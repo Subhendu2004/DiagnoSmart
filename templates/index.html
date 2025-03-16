@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='Ml_logo.svg') }}">
+
+    <title>DiagnoSmart</title>
+    <style>@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+      :root {
+        --primary-color: #12ac8e;
+        --primary-color-dark: #0d846c;
+        --primary-color-light: #e9f7f7;
+        --secondary-color: #fb923c;
+        --text-dark: #333333;
+        --text-light: #767268;
+        --white: #ffffff;
+        --max-width: 1200px;
+      }
+      
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      .section__container {
+        max-width: var(--max-width);
+        margin: auto;
+        padding: 5rem 1rem;
+      }
+      
+      .section__header {
+        margin-bottom: 0.5rem;
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+      
+      .btn {
+        padding: 0.75rem 2rem;
+        outline: none;
+        border: none;
+        font-size: 1rem;
+        white-space: nowrap;
+        color: var(--white);
+        background-color: var(--secondary-color);
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      img {
+        width: 100%;
+        display: flex;
+      }
+      
+      a {
+        text-decoration: none;
+      }
+      
+      html,
+      body {
+        scroll-behavior: smooth;
+      }
+      
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      
+      header {
+        background-image: linear-gradient(
+            to right,
+            rgba(18, 172, 142, 0.9),
+            rgba(18, 172, 142, 0.7)
+          ),
+          url("{{url_for('static', filename='header.jpg')}}");
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      
+      .nav__container {
+        padding: 2rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo-img {
+  height: 40px; /* Adjust size */
+  width: auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+
+      .nav__logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--white);
+      }
+      
+      .nav__logo span {
+        color: var(--secondary-color);
+      }
+      
+      .nav__links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+      }
+      
+      .link a {
+        padding: 0.5rem;
+        color: var(--primary-color-light);
+      }
+      
+      .link a:hover {
+        color: var(--white);
+      }
+      
+      .header__container {
+        display: flex;
+        align-items: center;
+        gap: 5rem;
+      }
+      
+      .header__container h1 {
+        margin-bottom: 1rem;
+        max-width: 800px;
+        font-size: 3.5rem;
+        line-height: 4rem;
+        color: var(--white);
+      }
+      
+      .header__container p {
+        margin-bottom: 2rem;
+        max-width: 600px;
+        color: var(--primary-color-light);
+      }
+      
+      .header__form {
+        width: 100%;
+        max-width: 350px;
+      }
+      
+      .header__form form {
+        display: grid;
+        gap: 1rem;
+        padding: 2rem;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+      }
+      
+      .header__form input {
+        padding: 1rem;
+        outline: none;
+        border: none;
+        font-size: 1rem;
+        color: var(--primary-color);
+        background-color: var(--primary-color-light);
+        border-radius: 5px;
+      }
+      
+      .header__form input::placeholder {
+        color: var(--primary-color);
+      }
+      
+      .form__btn {
+        background-color: var(--primary-color);
+        transition: 0.3s;
+      }
+      
+      .form__btn:hover {
+        background-color: var(--primary-color-dark);
+      }
+      
+      .header__form h4 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+      
+      .service__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+      
+      .service__header__content p {
+        max-width: 600px;
+        color: var(--text-light);
+      }
+      
+      .service__btn {
+        padding: 0.75rem 1rem;
+        outline: none;
+        font-size: 1rem;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+        background-color: transparent;
+        border-radius: 5px;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .service__btn:hover {
+        color: var(--white);
+        background-color: var(--primary-color);
+      }
+      
+      .service__grid {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+      
+      .service__card {
+        padding: 2rem;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+      }
+      
+      .service__card span {
+        display: inline-block;
+        margin-bottom: 1rem;
+        padding: 10px 20px;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        background-color: var(--primary-color-light);
+        border-radius: 100%;
+        transition: 0.3s;
+      }
+      
+      .service__card h4 {
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+      
+      .service__card p {
+        margin-bottom: 1rem;
+        color: var(--text-light);
+      }
+      
+      .service__card a {
+        color: var(--primary-color);
+      }
+      
+      .service__card a:hover {
+        color: var(--primary-color-dark);
+      }
+      
+      .service__card:hover span {
+        color: var(--primary-color-light);
+        background-color: var(--primary-color);
+      }
+      
+      .about__container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        align-items: center;
+      }
+      
+      .about__content p {
+        margin-bottom: 1rem;
+        color: var(--text-light);
+      }
+      
+      .about__image img {
+        max-width: 400px;
+        margin: auto;
+        border-radius: 10px;
+      }
+      
+      .why__container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        align-items: center;
+      }
+      
+      .why__image img {
+        max-width: 400px;
+        margin: auto;
+        border-radius: 10px;
+      }
+      
+      .why__content p {
+        color: var(--text-light);
+      }
+      
+      .why__grid {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: 80px auto;
+        gap: 2rem;
+      }
+      
+      .why__grid span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        border-radius: 10px;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+      }
+      
+      .why__grid h4 {
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+      
+      .why__grid p {
+        color: var(--text-light);
+      }
+      
+      .doctors__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+      
+      .doctors__header__content p {
+        max-width: 600px;
+        color: var(--text-light);
+      }
+      
+      .doctors__nav {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      
+      .doctors__nav span {
+        padding: 5px 15px;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        background-color: var(--primary-color-light);
+        cursor: pointer;
+      }
+      
+      .doctors__grid {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+      }
+      
+      .doctors__card {
+        text-align: center;
+        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        cursor: pointer;
+        overflow: hidden;
+      }
+      
+      .doctors__card__image {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .doctors__socials {
+        position: absolute;
+        left: 0;
+        bottom: -4rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        transition: 0.5s;
+      }
+      
+      .doctors__socials span {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 1.5rem;
+        color: var(--text-dark);
+        background-color: var(--white);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .doctors__socials span:hover {
+        color: var(--primary-color);
+      }
+      
+      .doctors__card:hover .doctors__socials {
+        bottom: 2rem;
+      }
+      
+      .doctors__card h4 {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+      
+      .doctors__card p {
+        margin-bottom: 1rem;
+        color: var(--text-light);
+      }
+      
+      .footer {
+        background-color: var(--primary-color-light);
+      }
+      
+      .footer__container {
+        display: grid;
+        grid-template-columns: 400px repeat(3, 1fr);
+        gap: 2rem;
+      }
+      
+      .footer__col h3 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+      
+      .footer__col h3 span {
+        color: var(--secondary-color);
+      }
+      
+      .footer__col h4 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary-color);
+      }
+      
+      .footer__col p {
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      
+      .footer__col p:hover {
+        color: var(--primary-color);
+      }
+      
+      .footer__col i {
+        color: var(--primary-color);
+      }
+      
+      .footer__bar {
+        background-color: var(--primary-color);
+      }
+      
+      .footer__bar__content {
+        max-width: var(--max-width);
+        margin: auto;
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+      
+      .footer__bar__content p {
+        font-size: 0.8rem;
+        color: var(--white);
+      }
+      
+      .footer__socials {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1rem;
+        color: var(--white);
+        cursor: pointer;
+      }
+      
+      @media (width < 900px) {
+        .service__grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+      
+        .about__container {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      
+        .about__image {
+          grid-area: 1/1/2/2;
+        }
+      
+        .about__content {
+          text-align: center;
+        }
+      
+        .why__container {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      
+        .why__content {
+          text-align: center;
+        }
+      
+        .why__grid {
+          text-align: left;
+        }
+      
+        .doctors__grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+        }
+      
+        .footer__container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      
+      @media (width < 780px) {
+        .nav__links {
+          display: none;
+        }
+      
+        .header__container {
+          flex-direction: column;
+        }
+      }
+      
+      @media (width < 600px) {
+        .service__header {
+          flex-direction: column;
+          text-align: center;
+        }
+      
+        .service__grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      
+        .why__grid {
+          column-gap: 1rem;
+        }
+      
+        .doctors__header {
+          flex-direction: column;
+          text-align: center;
+        }
+      
+        .doctors__grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      
+        .footer__bar__content {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+      </style>
+  </head>
+  <body>
+    <header>
+      <nav class="section__container nav__container">
+        <div class="nav__logo">
+          <img src="{{ url_for('static', filename='Ml_logo.png') }}" alt="DiagnoSmart Logo" class="logo-img">
+          Diagno<span>Smart</span></div>
+        <ul class="nav__links">
+         <li class="link"><a href="#home">Home</a></li>
+          <li class="link"><a href="#about">About Us</a></li>
+          <li class="link"><a href="#service">Services</a></li>
+          <li class="link"><a href="#pages">Pages</a></li>
+          <li class="link"><a href="#blog">Blog</a></li>
+        </ul>
+        <button class="btn">Contact Us</button>
+      </nav>
+      <div class="section__container header__container" id="home">
+        <div class="header__content">
+          <h1>Delivering an Exceptional AI-Powered Health Prediction Experience.</h1>
+          <p>
+            DiagnoSmart – Your AI-Powered Health Companion. Get Fast, Accurate, and Reliable Multi-Disease Predictions to Stay Ahead of Health Risks. Early Detection Leads to Better Prevention – Empower Your Well-Being with Smart Diagnosis Today!
+          </p>
+          <button class="btn">See Services</button>
+        </div>
+        <div class="header__form">
+          <form action="/predict" method="post" >
+            <h4>Predict Now</h4>
+            <input type="text" class="form-control" name= "symptoms" placeholder="Type your symptoms here" />
+            
+            <button class="btn form__btn" onclick="window.location.href='/predict';">Predict</button>
+            
+          </form>
+        </div>
+      </div>
+    </header>
+    
+
+
+    <section class="section__container service__container" id="service">
+      <div class="service__header">
+        <div class="service__header__content">
+          <h2 class="section__header">Our Special service</h2>
+          <p>
+            Our services are powered by advanced AI technology, offering fast, accurate, and reliable multi-disease predictions to support proactive healthcare decisions.
+          </p>
+        </div>
+        <button class="service__btn">Ask A Service</button>
+      </div>
+      <div class="service__grid">
+        <div class="service__card">
+          <span><i class="ri-microscope-line"></i></span>
+          <h4>Disease</h4>
+          <p>
+            Understand various health conditions with AI-driven insights.
+          </p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="service__card">
+          <span><i class="ri-mental-health-line"></i></span>
+          <h4>Description</h4>
+          <p>
+            Get detailed information about symptoms, causes, and risks.
+          </p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="service__card">
+          <span><i class="ri-hospital-line"></i></span>
+          <h4>Precaution</h4>
+          <p>
+            Learn preventive measures to reduce health risks.
+          </p>
+          <a href="#">Learn More</a>
+        </div>
+      </div>
+      <div class="service__grid">
+        <div class="service__card">
+          <span><i class="ri-microscope-line"></i></span>
+          <h4>Medicines</h4>
+          <p>
+            Discover recommended treatments and medication guidelines.
+          </p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="service__card">
+          <span><i class="ri-mental-health-line"></i></span>
+          <h4>Workouts</h4>
+          <p>
+            Explore fitness routines to improve overall well-being.
+          </p>
+          <a href="#">Learn More</a>
+        </div>
+        <div class="service__card">
+          <span><i class="ri-hospital-line"></i></span>
+          <h4>Diets</h4>
+          <p>
+            Find personalized nutrition plans for a healthier lifestyle.
+          </p>
+          <a href="#">Learn More</a>
+        </div>
+      </div>
+    </section>
+    <section class="section__container about__container" id="about">
+      <div class="about__content">
+        <h2 class="section__header">About Us</h2>
+        <p>
+          Welcome to DiagnoSmart, your trusted AI-powered health prediction platform. Our mission is to revolutionize healthcare by providing fast, accurate, and reliable multi-disease predictions using advanced machine learning technology.
+        </p>
+        <p>
+          At DiagnoSmart, we believe in the power of early detection and prevention. Our intelligent system analyzes medical data to identify potential health risks, empowering you with valuable insights to make informed decisions about your well-being.
+        </p>
+        <p>
+          With cutting-edge AI models, we aim to bridge the gap between technology and healthcare, making disease prediction accessible, efficient, and proactive. Join us in embracing the future of healthcare—where innovation meets better health outcomes.
+        </p>
+      </div>
+      <div class="about__image">
+        <img src="{{url_for('static', filename='Doc1.webp')}}" alt="about" />
+      </div>
+    </section>
+
+    <section class="section__container why__container" id="blog">
+      <div class="why__image">
+        <img src="{{url_for('static', filename='Doc2.webp')}}" alt="why choose us" />
+      </div>
+      <div class="why__content">
+        <h2 class="section__header">Why Choose Us</h2>
+        <p>
+          At DiagnoSmart, we leverage cutting-edge AI technology to provide accurate, fast, and reliable multi-disease predictions, helping you take control of your health with data-driven insights. Here’s why we stand out:
+        </p>
+        <div class="why__grid">
+          <span><i class="ri-hand-heart-line"></i></span>
+          <div>
+            <h4>AI-Powered Multi-Disease Prediction</h4>
+            <p>
+              Get fast, accurate, and data-driven health insights with our advanced machine-learning models.
+            </p>
+          </div>
+          <span><i class="ri-truck-line"></i></span>
+          <div>
+            <h4>Early Detection for Better Prevention</h4>
+            <p>
+              Identify potential health risks early and take proactive steps toward a healthier future.
+            </p>
+          </div>
+          <span><i class="ri-hospital-line"></i></span>
+          <div>
+            <h4>Secure & Confidential</h4>
+            <p>
+              Your health data is protected with advanced security measures, ensuring complete privacy and trust.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section__container doctors__container" id="pages">
+      <div class="doctors__header">
+        <div class="doctors__header__content">
+          <h2 class="section__header">Our Special Features</h2>
+          <p>
+            AI-powered multi-disease prediction with real-time analysis, futuristic design, and a seamless green-themed medical interface.
+          </p>
+        </div>
+        <div class="doctors__nav">
+          <span><i class="ri-arrow-left-line"></i></span>
+          <span><i class="ri-arrow-right-line"></i></span>
+        </div>
+      </div>
+      <div class="doctors__grid">
+        <div class="doctors__card">
+          <div class="doctors__card__image">
+            <img src="{{url_for('static', filename='ML1.webp')}}" alt="doctor" />
+            <div class="doctors__socials">
+              <span><i class="ri-instagram-line"></i></span>
+              <span><i class="ri-facebook-fill"></i></span>
+              <span><i class="ri-heart-fill"></i></span>
+              <span><i class="ri-twitter-fill"></i></span>
+            </div>
+          </div>
+          <h4>Medical AI / Healthcare Tech</h4><p></p>
+        </div>
+        <div class="doctors__card">
+          <div class="doctors__card__image">
+            <img src="{{url_for('static', filename='ML2.webp')}}" alt="doctor" />
+            <div class="doctors__socials">
+              <span><i class="ri-instagram-line"></i></span>
+              <span><i class="ri-facebook-fill"></i></span>
+              <span><i class="ri-heart-fill"></i></span>
+              <span><i class="ri-twitter-fill"></i></span>
+            </div>
+          </div>
+          <h4>Deep Learning in Healthcare</h4><p></p>
+        </div>
+        <div class="doctors__card">
+          <div class="doctors__card__image">
+            <img src="{{url_for('static', filename='ML3.webp')}}" alt="doctor" />
+            <div class="doctors__socials">
+              <span><i class="ri-instagram-line"></i></span>
+              <span><i class="ri-facebook-fill"></i></span>
+              <span><i class="ri-heart-fill"></i></span>
+              <span><i class="ri-twitter-fill"></i></span>
+            </div>
+          </div>
+          <h4>Predictive Analytics in Medicine</h4><p></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="section__container footer__container">
+        <div class="footer__col">
+          <h3>Diagno<span>Smart</span></h3>
+          <p>
+            We are honored to be a part of your health journey, providing AI-powered, accurate, and personalized disease predictions to support your well-being every step of the way.
+          </p>
+          <p>
+            Trust us with your health, and let AI-driven insights empower you to make informed decisions for a healthier future.
+          </p>
+        </div>
+        <div class="footer__col">
+          <h4>About Us</h4>
+          <p>Home</p>
+          <p>About Us</p>
+          <p>Work With Us</p>
+          <p>Our Blog</p>
+          <p>Terms & Conditions</p>
+        </div>
+        <div class="footer__col">
+          <h4>Services</h4>
+          <p>Search Terms</p>
+          <p>Advance Search</p>
+          <p>Privacy Policy</p>
+          <p>Suppliers</p>
+          <p>Our Stores</p>
+        </div>
+        <div class="footer__col">
+          <h4>Contact Us</h4>
+          <p>
+            <i class="ri-map-pin-2-fill"></i> Kolkata, West Bangal, India
+          </p>
+          <p><i class="ri-mail-fill"></i> DiagnoSmart@gmail.com</p>
+          <p><i class="ri-phone-fill"></i> (+012) 3456 789</p>
+        </div>
+      </div>
+      <div class="footer__bar">
+        <div class="footer__bar__content">
+          <p>© 2025 QuickDoc | All Rights Reserved | Copyright Subhendu Das</p>
+          <div class="footer__socials">
+            <span><i class="ri-instagram-line"></i></span>
+            <span><i class="ri-facebook-fill"></i></span>
+            <span><i class="ri-heart-fill"></i></span>
+            <span><i class="ri-twitter-fill"></i></span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
