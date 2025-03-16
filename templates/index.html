@@ -8,10 +8,13 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='ML_logo.svg') }}"> 
-
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='Ml_logo.svg') }}">
 
     <title>DiagnoSmart</title>
+    <!-- Toastify for better notifications -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <style>@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
       :root {
@@ -138,7 +141,7 @@
       .header__container h1 {
         margin-bottom: 1rem;
         max-width: 800px;
-        font-size: 3.5rem;
+        font-size: 2.5rem;
         line-height: 4rem;
         color: var(--white);
       }
@@ -150,28 +153,38 @@
       }
       
       .header__form {
-        width: 100%;
-        max-width: 350px;
-      }
-      
-      .header__form form {
-        display: grid;
-        gap: 1rem;
-        padding: 2rem;
-        background-color: var(--white);
-        border-radius: 10px;
-        box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
-      }
-      
-      .header__form input {
-        padding: 1rem;
-        outline: none;
-        border: none;
-        font-size: 1rem;
-        color: var(--primary-color);
-        background-color: var(--primary-color-light);
-        border-radius: 5px;
-      }
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centers form horizontally */
+    align-items: center; /* Centers vertically (if header has height) */
+    margin-bottom: 4rem; /* Adds space below the form */
+}
+
+.header__form form {
+    display: grid;
+    gap: 1rem;
+    padding: 2rem;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    
+    width: 80%; /* Makes form take 80% of screen width */
+    max-width: 1000px; /* Prevents form from getting too wide */
+    margin: 0 auto 4rem auto; /* Ensures it stays centered + bottom margin */
+}
+
+.header__form input {
+    padding: 1rem;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    color: var(--primary-color);
+    background-color: var(--primary-color-light);
+    border-radius: 5px;
+    width: 100%; /* Makes input fields stretch across the form */
+}
+
+
       
       .header__form input::placeholder {
         color: var(--primary-color);
@@ -577,10 +590,15 @@
       </style>
   </head>
   <body>
+
+    
+  
+  
+
     <header>
       <nav class="section__container nav__container">
         <div class="nav__logo">
-          <img src="{{ url_for('static', filename='ML_logo.png') }}" alt="" class="logo-img">
+          <img src="{{ url_for('static', filename='Ml_logo.png') }}" alt="DiagnoSmart Logo" class="logo-img">
           Diagno<span>Smart</span></div>
         <ul class="nav__links">
          <li class="link"><a href="#home">Home</a></li>
@@ -599,15 +617,16 @@
           </p>
           <button class="btn">See Services</button>
         </div>
-        <div class="header__form">
-          <form action="/predict" method="post" >
-            <h4>Predict Now</h4>
-            <input type="text" class="form-control" name= "symptoms" placeholder="Type your symptoms here" />
-            
-            <button class="btn form__btn" onclick="window.location.href='/predict';">Predict</button>
-            
-          </form>
-        </div>
+        
+      </div>
+      <div class="header__form">
+        <form action="/predict" method="post" >
+          <h4>Predict Now</h4>
+          <input type="text" class="form-control" name= "symptoms" placeholder="Type your symptoms here like itching,skin_rash,nodal_skin_eruptions" />
+          
+          <button class="btn form__btn" onclick="window.location.href='/predict';">Predict</button>
+          
+        </form>
       </div>
     </header>
     
@@ -830,5 +849,32 @@
         </div>
       </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    Toastify({
+                        text: "{{ message | safe }}",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        style: {
+                            background: "{{ 'orange' if category == 'error' else 'green' }}",
+                            color: "white",
+                            borderRadius: "8px",
+                            padding: "10px",
+                        }
+                    }).showToast();
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    });
+</script>
+
+
   </body>
 </html>
+
