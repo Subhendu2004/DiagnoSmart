@@ -1,4 +1,4 @@
-from flask import Flask,request,render_template
+from flask import Flask, request, render_template, flash, redirect, url_for
 import numpy as np
 import pandas as pd
 import pickle 
@@ -18,7 +18,7 @@ svc=pickle.load(open('models/svc.pkl','rb'))
 
 
 app = Flask(__name__)
-
+app.secret_key = "your_secret_key"
 def helper(dis):
   desc=description[description['Disease']==dis]['Description']
   desc=" ".join([w for w in desc])
@@ -58,6 +58,14 @@ def predict():
         user_symptoms = [s.strip() for s in symptoms.split(',')]
         # Remove any extra characters, if any
         user_symptoms = [symptom.strip("[]' ") for symptom in user_symptoms]
+
+        # Check if symptoms are valid
+        invalid_symptoms = [symptom for symptom in user_symptoms if symptom not in symptoms_dict]
+
+        if invalid_symptoms:
+            flash(f"Invalid symptoms detected: {', '.join(invalid_symptoms)}. Please enter valid symptoms.", "error")
+            return redirect(url_for('index'))  # Redirect back to homepage
+
         predicted_disease = get_predicted_value(user_symptoms)
 
         desc, pre, med, die, worko = helper(predicted_disease)
